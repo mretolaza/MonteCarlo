@@ -1,7 +1,8 @@
 /* File:      pi_monte_carlo.c
  * Purpose:   Estimate pi using OpenMP and a monte carlo method
- * 
- * Compile:   gcc -fopenmp -o pi_monte_carlo pi_monte_carlo.c my_rand.c
+ *
+ * Compile:   gcc -fopenmp -o pi_monte_carlo
+ *                  pi_monte_carlo.c my_rand.c
  *            *needs my_rand.c, my_rand.h
  *
  * Run:       ./pi_monte_carlo <number of threads>
@@ -10,9 +11,10 @@
  * Input:     None
  * Output:    Estimate of pi
  *
- * Note:      The estimated value of pi depends on both the number of 
- *            threads and the number of "tosses".  
+ * Note:      The estimated value of pi depends on both the number of
+ *            threads and the number of "tosses".
  */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -65,7 +67,7 @@ float isAHit(float x, float y) {
 long long int Count_hits(long long int number_of_tosses, int thread_count) {
     long long int hits = 0;
     double  x, y, distancia_cuadrada;
-#pragma omp parallel for num_threads(thread_count) reduction(+: hits) private(x,y, distancia_cuadrada)
+#pragma omp parallel for num_threads(thread_count) reduction(+: hits) private(x,y, distancia_cuadrada) schedule(guided)
     for(int i = 0; i < number_of_tosses; i++) {
         x = (((float)rand()/(float)(RAND_MAX)) * 2.0) - 1.0;
         y = (((float)rand()/(float)(RAND_MAX)) * 2.0) - 1.0;

@@ -55,7 +55,16 @@ int main(int argc, char* argv[]) {
 
 long long int Count_hits(long long int number_of_tosses, int thread_count) {
 
-   ** TODO **
+   long int aciertos_en_circulo = 0; 
+   #pragma omp parallel for num_threads(thread_count) 
+   for (int toss = 0; toss < number_of_tosses; toss++) {
+    srand( time (NULL)); 
+    double random_value = (double)rand()/RAND_MAX*2.0-1.0; 
+    x = random double entre -1 y 1; 
+    y = random double entre -1 y 1; 
+    distancia_cuadrada = x*x + y*y; 
+    if (distancia_cuadrada <= 1) aciertos_en_circulo ++; 
+   }
   
 }  /* Count_hits */
 
